@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Statistics</title>
+</head>
+
+
+<body style="background-color:#C0C0C0;">
+
+<h1 style="text-align:center;">
+Statistics
+</h1>
+<hr> 
+
+<div>
+ <ul>
+  <li><a href="#pandas">Pandas</a></li>
+ 	<ul>
+ 		<li><a href="#definequantiles">Define Quantiles/Deciles</a></li>
+ 	</ul>
+
+ </ul>
+</div>
+
+
+<div>
+<a name="pandas"></a>
+<h3 style="text-align: center;">Pandas</h3>
+
+<a name="definequantiles"></a>
+<b>Define Quatines/Deciles</b>
+	<p>
+	<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.qcut.html">doc</a>
+
+
+		<pre>
+  df['deciles'] = pd.qcut(df[data],q=10)
+		</pre>
+
+		Add labels 
+
+		<pre>
+  df['decile_labels'] = pd.qcut(df[data],q=10,labels=[x for x in range(1,11)])
+		</pre>
+ 
+ 	</p>
+
+
+</div>
+
+</body>
+</html> 
