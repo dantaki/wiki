@@ -23,6 +23,7 @@ Dante WGS
  <ul>
   <li><a href="#summary">Summary</a></li>
   <li><a href="#download">Download FASTQs</a></li>
+  <li><a href="#qc">Quality Control</a></li>
  </ul>
 </div>
 
@@ -30,7 +31,13 @@ Dante WGS
 
 <p>
   <a name="summary"></a>
-  Here is a guide outlining the basic steps for analyzing whole genome data, using a <a href="https://www.nature.com/articles/s41467-018-06159-4">functional equivalence</a> pipeline outlined in 2018 by many genome sequencing institutes. The sequencing provider used here is Dante Labs, which uses NovoSeq 6000 (?) Illumina sequencers, advertising 30x coverage with paired-end reads. I purchased the kit in 2020 for $150 during a Black Friday sale. Below I will outline how to download the raw data, perform quality control, align the reads to GRCh38, perform variant calling and annotations, and prioritize rare variants that may negatively affect health.</p> 
+  Here is a guide outlining the basic steps for analyzing whole genome data, using a <a href="https://www.nature.com/articles/s41467-018-06159-4">functional equivalence</a> pipeline outlined in 2018 by many genome sequencing institutes. The sequencing provider used here is Dante Labs, which uses NovoSeq 6000 (?) Illumina sequencers, advertising 30x coverage with paired-end reads. I purchased the kit in 2020 for $150 during a Black Friday sale. Below I will outline how to download the raw data, perform quality control, align the reads to GRCh38, perform variant calling and annotations, and prioritize rare variants that may negatively affect health.
+
+  <br>
+  The steps outlined below use a Linux OS environment and the command line. 
+
+</p>
+
 <p>
   <b>The Content is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</b>
 </p>
@@ -51,8 +58,52 @@ Dante WGS
   $ screen
   $ wget -O mygenome_R2.fq.gz "https://dantenostrum.s3.amazonaws.com/MYGENOME123/clean_data/MYGENOME123_SA_L001_R2_001.fastq.gz?AWSAccessKeyId=MYDANTEKEY&Signature=foobar%3D&Expires=1613636331
 </pre>
-
 </div>
+
+<!-- ------------------------------------------------------------------------------- -->
+<!-- ------------------------------------------------------------------------------- -->
+<!-- ------------------------------------------------------------------------------- -->
+
+<div>
+<a name="qc"></a>
+
+<h4>Quality Control</h4>
+
+<p>
+  Once the FASTQ files have downloaded you can first check the integrity of the files using gzip with the --test flag. Note this step will take a long time to run (as most steps in this guide). If there is no error message, then the file is not corrupted; there will be no output for an intact file. 
+</p>
+
+<pre>
+  $ gzip -t mygenome_R1.fq.gz
+  $ gzip --test mygenome_R2.fq.gz 
+</pre>
+
+<p>
+  The best program to run QC on FASTQs is <a href="https://github.com/s-andrews/FastQC">FastQC</a>. This tool is written in java, so you must have <code>java</code> in your environment. If you do not have a copy of the Java Runtime Environment (JRE), you can download it for free from Oracle. Search for "Java JRE download" to find a copy of the Java JRE. 
+  <br>
+  Once the JRE is downloaded you will need to put <code>java</code> in your path like this
+
+<pre>
+  export PATH=/path/to/java/jre1.8.0_73:$PATH
+  export PATH=/path/to/java/jre1.8.0_73/bin:$PATH
+</pre>
+  
+  I would recommend putting the above commands in your <code>.bashrc</code> or <code>.bash_profile</code> for future use, since GATK uses Java.
+
+  <br>
+
+  After downloading FastQC and JRE, run the command line version of FastQC to generate the QC report
+
+<pre>
+  $ perl FastQC/fastqc mygenome_R1.fq.gz mygenome_R2.fq.gz
+</pre>
+
+</p>
+</div>
+<!-- ------------------------------------------------------------------------------- -->
+<!-- ------------------------------------------------------------------------------- -->
+<!-- ------------------------------------------------------------------------------- -->
+
 
 
 </body>
