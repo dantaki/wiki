@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Dante WGS</title>
+</head>
+
+
+<body style="background-color:#C0C0C0;">
+
+ <div class="navbar" style="background-color:#000000;">
+  <a href="index.html" style="text-decoration: none;color: #ffffff;padding-left:20px;">Home</a>
+</div> 
+
+
+<h1 style="text-align:center;">
+Dante WGS
+</h1>
+<hr> 
+
+<div>
+<h4>Table of Contents</h4>
+ <ul>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#download">Download FASTQs</a></li>
+ </ul>
+</div>
+
+<hr>
+
+<p>
+  <a name="summary"></a>
+  Here is a guide outlining the basic steps for analyzing whole genome data, using a <a href="https://www.nature.com/articles/s41467-018-06159-4">functional equivalence</a> pipeline outlined in 2018 by many genome sequencing institutes. The sequencing provider used here is Dante Labs, which uses NovoSeq 6000 (?) Illumina sequencers, advertising 30x coverage with paired-end reads. I purchased the kit in 2020 for $150 during a Black Friday sale. Below I will outline how to download the raw data, perform quality control, align the reads to GRCh38, perform variant calling and annotations, and prioritize rare variants that may negatively affect health.</p> 
+<p>
+  <b>The Content is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</b>
+</p>
+
+
+<div>
+<a name="download"></a>
+
+<h4>Download FASTQs</h4>
+
+<p>
+  <a href="https://en.wikipedia.org/wiki/FASTQ_format">FASTQs</a> are files that contain the raw sequence information with base quality scores. I couldn't figure out how to download the files using the command line (wget, rsync, etc.). You can get the download URL by downloading a file from a web browser, terminating the download, and right-clicking on the file in the Downloads queue to copy the download URL. However, doing this with Dante's FASTQs did not work for me. <br>
+
+  Instead, email Dante and request a URL for download using the command line. They typically respond within a day. Once you have the link, I recommend opening a screen to download the files; one for each FASTQ. Below is an example command for one of the pairs. Note you will need to encapsulate the URL Dante provides in double-quotes
+</p>
+
+<pre>
+  $ screen
+  $ wget -O mygenome_R2.fq.gz "https://dantenostrum.s3.amazonaws.com/MYGENOME123/clean_data/MYGENOME123_SA_L001_R2_001.fastq.gz?AWSAccessKeyId=MYDANTEKEY&Signature=foobar%3D&Expires=1613636331
+</pre>
+
+</div>
+
+
+</body>
+</html> 
